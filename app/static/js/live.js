@@ -1,3 +1,4 @@
+let navegando = false;
 let rondaVisualizada = null;
 let rondaActual = 1;
 let cargando = false;
@@ -26,7 +27,7 @@ async function cargarDashboard() {
 
     }
 
-    rondaActual = data.ronda;
+    rondaActual = data.ronda
 
     if (rondaVisualizada === null)
         rondaVisualizada = data.ronda;
@@ -117,20 +118,21 @@ setInterval(async () => {
     if (cargando)
         return;
 
-    if (rondaVisualizada == null || rondaVisualizada === rondaActual) {
+    if (navegando)
+        return;
 
-        rondaVisualizada = null;
+    rondaVisualizada = null;
 
-        await cargarDashboard();
+    await cargarDashboard();
 
-    }
-
-}, 10000);
+}, 2000);
 
 document.getElementById("anteriorRonda").addEventListener("click", async () => {
 
     if (cargando)
         return;
+
+    navegando = true;
 
     if (rondaVisualizada > 1) {
 
@@ -146,6 +148,8 @@ document.getElementById("siguienteRonda").addEventListener("click", async () => 
 
     if (cargando)
         return;
+
+    navegando = true;
 
     if (rondaVisualizada < rondaActual) {
 
