@@ -1,4 +1,3 @@
-let navegando = false;
 let rondaVisualizada = null;
 let rondaActual = 1;
 let cargando = false;
@@ -118,12 +117,14 @@ setInterval(async () => {
     if (cargando)
         return;
 
-    if (navegando)
-        return;
+    // Solo actualizar automáticamente si está viendo la ronda actual
+    if (rondaVisualizada === rondaActual) {
 
-    rondaVisualizada = null;
+        rondaVisualizada = null;
 
-    await cargarDashboard();
+        await cargarDashboard();
+
+    }
 
 }, 2000);
 
@@ -132,15 +133,13 @@ document.getElementById("anteriorRonda").addEventListener("click", async () => {
     if (cargando)
         return;
 
-    navegando = true;
+        if (rondaVisualizada > 1) {
 
-    if (rondaVisualizada > 1) {
+            rondaVisualizada--;
 
-        rondaVisualizada--;
+            await cargarDashboard();
 
-        await cargarDashboard();
-
-    }
+        }
 
 });
 
@@ -149,14 +148,12 @@ document.getElementById("siguienteRonda").addEventListener("click", async () => 
     if (cargando)
         return;
 
-    navegando = true;
+        if (rondaVisualizada < rondaActual) {
 
-    if (rondaVisualizada < rondaActual) {
+            rondaVisualizada++;
 
-        rondaVisualizada++;
+            await cargarDashboard();
 
-        await cargarDashboard();
-
-    }
+        }
 
 });
