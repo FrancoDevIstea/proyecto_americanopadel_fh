@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Americano Padel</title>
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>🏆 Americano Padel - By Franco</h1>
+
+            <p class="subtitle">
+                Jugate un americano!!!
+            </p>
+
+            <form id="torneoForm">
+
+                <label>NOMBRE DEL TORNEO</label>
+
+                <input
+                    id="nombreTorneo"
+                    type="text"
+                    placeholder="Ej: Americano Viernes Night"
+                    required
+                >
+
+                <hr>
+
+                <div id="players"></div>
+
+                <button type="submit">
+                    Generar Americano
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+    <hr>
+    
+
+    <h2>📂 Torneos</h2>
+
+    <div id="listaTorneos">
+
+        Cargando torneos...
+
+    </div>
+
+
+
+    <script src="/static/js/app.js"></script>
+
+</body>
+
+</html>
