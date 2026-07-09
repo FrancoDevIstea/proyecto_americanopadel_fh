@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>🏆 Dashboard Americano</h1>
+
+        <h2 id="nombreTorneo"></h2>
+
+        <hr>
+
+       <div class="ronda-nav">
+
+    <button id="anteriorRonda" class="btn-nav">
+        ⬅
+    </button>
+
+    <h2 id="tituloRonda">
+        🟢 RONDA 1
+    </h2>
+
+    <button id="siguienteRonda" class="btn-nav">
+        ➡
+    </button>
+
+</div>
+
+        <div id="partidos">
+
+            Cargando...
+
+        </div>
+
+        <hr>
+
+        <h2>📊 Tabla</h2>
+
+        <div id="tabla">
+
+            Cargando...
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const TORNEO_ID = window.location.pathname.split("/").pop();
+
+</script>
+
+<script src="/static/js/live.js"></script>
+
+</body>
+
+</html>

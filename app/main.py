@@ -435,3 +435,15 @@ def listar_torneos():
     
     finally:
         db.close()
+
+
+@app.get("/live/{torneo_id}", response_class=HTMLResponse)
+def live(request: Request, torneo_id: int):
+
+    return templates.TemplateResponse(
+        request,
+        "live.html",
+        {
+            "torneo_id": torneo_id
+        }
+    )
