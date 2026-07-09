@@ -117,14 +117,15 @@ setInterval(async () => {
     if (cargando)
         return;
 
-    if (rondaVisualizada === rondaActual) {
+    if (rondaVisualizada == null || rondaVisualizada === rondaActual) {
 
         rondaVisualizada = null;
+
         await cargarDashboard();
 
     }
 
-}, 2000);
+}, 10000);
 
 document.getElementById("anteriorRonda").addEventListener("click", async () => {
 
