@@ -26,7 +26,7 @@ async function cargarDashboard() {
 
     }
 
-    rondaActual = data.ronda
+    rondaActual = data.ronda_actual;
 
     if (rondaVisualizada === null)
         rondaVisualizada = data.ronda;

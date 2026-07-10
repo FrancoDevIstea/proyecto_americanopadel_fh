@@ -161,6 +161,7 @@ def obtener_dashboard(
 ):
 
     db = SessionLocal()
+
     try:
 
         torneo = (
@@ -177,32 +178,36 @@ def obtener_dashboard(
 
         tabla = calcular_tabla(db, torneo_id)
 
-        # Si no se pasa una ronda, buscar la próxima pendiente
+        # Buscar cuál es la ronda actual del torneo
+        ronda_viva = (
+            db.query(Partido.ronda)
+            .filter(
+                Partido.torneo_id == torneo_id,
+                Partido.finalizado == 0
+            )
+            .order_by(Partido.ronda)
+            .first()
+        )
+
+        if ronda_viva is None:
+
+            return {
+
+                "torneo": torneo.nombre,
+                "finalizado": True,
+                "ronda": 7,
+                "ronda_actual": 7,
+                "partidos": [],
+                "tabla": tabla
+
+            }
+
+        ronda_actual = ronda_viva[0]
+
+        # Si no especifican una ronda, mostrar la actual
         if ronda is None:
 
-            ronda_actual = (
-                db.query(Partido.ronda)
-                .filter(
-                    Partido.torneo_id == torneo_id,
-                    Partido.finalizado == 0
-                )
-                .order_by(Partido.ronda)
-                .first()
-            )
-
-            if ronda_actual is None:
-
-                return {
-
-                    "torneo": torneo.nombre,
-                    "finalizado": True,
-                    "ronda": 7,
-                    "partidos": [],
-                    "tabla": tabla
-
-                }
-
-            numero_ronda = ronda_actual[0]
+            numero_ronda = ronda_actual
 
         else:
 
@@ -221,6 +226,7 @@ def obtener_dashboard(
         mapa = {}
 
         for jugador in jugadores:
+
             mapa[jugador.id] = jugador.nombre
 
         partidos_json = []
@@ -230,7 +236,6 @@ def obtener_dashboard(
             partidos_json.append({
 
                 "id": partido.id,
-
                 "cancha": partido.cancha,
 
                 "equipo1": [
@@ -251,14 +256,19 @@ def obtener_dashboard(
 
         return {
 
-                            "torneo": torneo.nombre,
-                            "finalizado": False,
-                            "ronda": numero_ronda,
-                            "partidos": partidos_json,
-                            "tabla": tabla
-                        }
-    
-    finally: 
+            "torneo": torneo.nombre,
+            "finalizado": False,
+
+            "ronda": numero_ronda,
+            "ronda_actual": ronda_actual,
+
+            "partidos": partidos_json,
+            "tabla": tabla
+
+        }
+
+    finally:
+
         db.close()
 
 
